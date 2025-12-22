@@ -92,10 +92,23 @@ function App() {
     };
     setLogs((prev) => [newLog, ...prev]);
 
-    setInventory((prev) => ({
-      ...prev,
-      [genre]: [newBook, ...prev[genre]],
-    }));
+    setInventory((prev) => {
+      const updatedStack = [newBook, ...prev[genre]];
+
+      // Clear error log if stock is healthy (>= 5)
+      if (updatedStack.length >= 5) {
+        setErrorLogs((prevLogs) =>
+          prevLogs.filter(
+            (log) => !log.message.includes(`Low Stock Warning: ${genre}`)
+          )
+        );
+      }
+
+      return {
+        ...prev,
+        [genre]: updatedStack,
+      };
+    });
   };
 
   const handleSell = (genre) => {
