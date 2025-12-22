@@ -94,15 +94,34 @@ function App() {
 
     setInventory((prev) => {
       const updatedStack = [newBook, ...prev[genre]];
+      const newCount = updatedStack.length;
 
-      // Clear error log if stock is healthy (>= 5)
-      if (updatedStack.length >= 5) {
-        setErrorLogs((prevLogs) =>
-          prevLogs.filter(
+      // Update Error Logs
+      setErrorLogs((prevLogs) => {
+        // If healthy, remove warning
+        if (newCount >= 5) {
+          return prevLogs.filter(
             (log) => !log.message.includes(`Low Stock Warning: ${genre}`)
-          )
+          );
+        }
+
+        // If still low, update the number in the existing warning
+        const existingLogIndex = prevLogs.findIndex((log) =>
+          log.message.includes(`Low Stock Warning: ${genre}`)
         );
-      }
+
+        if (existingLogIndex !== -1) {
+          const updatedLogs = [...prevLogs];
+          updatedLogs[existingLogIndex] = {
+            ...updatedLogs[existingLogIndex],
+            message: `Low Stock Warning: ${genre} (${newCount} remaining)`,
+            timestamp: new Date().toLocaleTimeString(),
+          };
+          return updatedLogs;
+        }
+
+        return prevLogs;
+      });
 
       return {
         ...prev,
@@ -131,23 +150,35 @@ function App() {
 
     // Check for Low Stock Error
     if (newStack.length < 5) {
-      const errorLog = {
-        id: Date.now() + 1, // Ensure unique ID if same ms
-        message: `Low Stock Warning: ${genre} (${newStack.length} remaining)`,
-        timestamp: new Date().toLocaleTimeString(),
-      };
+      const errorMessage = `Low Stock Warning: ${genre} (${newStack.length} remaining)`;
+      const timestamp = new Date().toLocaleTimeString();
 
-      // Prevent duplicate consecutive logs for same genre to avoid spam
       setErrorLogs((prev) => {
-        const lastLog = prev[0];
-        if (
-          lastLog &&
-          lastLog.message.includes(genre) &&
-          lastLog.timestamp === errorLog.timestamp
-        ) {
-          return prev;
+        // Check if a low stock warning for this genre already exists
+        const existingLogIndex = prev.findIndex((log) =>
+          log.message.includes(`Low Stock Warning: ${genre}`)
+        );
+
+        if (existingLogIndex !== -1) {
+          // Update the existing log's message and timestamp
+          const updatedLogs = [...prev];
+          updatedLogs[existingLogIndex] = {
+            ...updatedLogs[existingLogIndex],
+            message: errorMessage,
+            timestamp: timestamp,
+          };
+          return updatedLogs;
+        } else {
+          // Create new log if none exists
+          return [
+            {
+              id: Date.now() + 1,
+              message: errorMessage,
+              timestamp: timestamp,
+            },
+            ...prev,
+          ];
         }
-        return [errorLog, ...prev];
       });
     }
 
