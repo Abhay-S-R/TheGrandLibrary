@@ -1,5 +1,3 @@
-import React from "react";
-
 const Book = ({ book }) => {
   return (
     <div className="flex items-start gap-6 p-6 bg-paper border border-oak/20 rounded-lg shadow-sm mb-4 hover:shadow-md hover:border-oak/40 transition-all group">

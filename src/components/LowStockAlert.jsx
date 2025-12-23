@@ -1,5 +1,3 @@
-import React from "react";
-
 const LowStockAlert = ({ inventory }) => {
   const lowStockThreshold = 3;
   const lowStockGenres = Object.entries(inventory).filter(

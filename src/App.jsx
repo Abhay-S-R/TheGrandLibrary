@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { INITIAL_INVENTORY } from "./data/initialData";
 import GenreStack from "./components/GenreStack";
 import Controls from "./components/Controls";
@@ -9,10 +9,36 @@ import Footer from "./components/Footer";
 import { BOOK_COVERS } from "./data/bookCovers";
 
 function App() {
-  const [inventory, setInventory] = useState(INITIAL_INVENTORY);
-  const [logs, setLogs] = useState([]);
-  const [errorLogs, setErrorLogs] = useState([]);
+  // Initialize state from localStorage or default
+  const [inventory, setInventory] = useState(() => {
+    const saved = localStorage.getItem("inventory");
+    return saved ? JSON.parse(saved) : INITIAL_INVENTORY;
+  });
+
+  const [logs, setLogs] = useState(() => {
+    const saved = localStorage.getItem("logs");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [errorLogs, setErrorLogs] = useState(() => {
+    const saved = localStorage.getItem("errorLogs");
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [selectedGenre, setSelectedGenre] = useState(null);
+
+  // Persistence Effects
+  useEffect(() => {
+    localStorage.setItem("inventory", JSON.stringify(inventory));
+  }, [inventory]);
+
+  useEffect(() => {
+    localStorage.setItem("logs", JSON.stringify(logs));
+  }, [logs]);
+
+  useEffect(() => {
+    localStorage.setItem("errorLogs", JSON.stringify(errorLogs));
+  }, [errorLogs]);
 
   const generateNewBook = (genre) => {
     const id = Date.now();

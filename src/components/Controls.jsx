@@ -1,5 +1,3 @@
-import React from "react";
-
 const Controls = ({ onAdd, onSell, genre, disabledSell }) => {
   return (
     <div className="mt-6 flex gap-4">
