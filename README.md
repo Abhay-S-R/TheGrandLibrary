@@ -1,16 +1,48 @@
-# React + Vite
+# The Grand Library Inventory System 📚
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A "Cozy Library" themed inventory management application built with **React**, **Vite**, and **Tailwind CSS**. This application uses a Stack data structure logic (LIFO) for managing book stocks and sales.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Genre Management**: Organize books into stacks for Fiction, Non-Fiction, Adventure, Children's, Romance, and Crime.
+- **Stack Operations**:
+  - **Restock**: Push new books onto the stack (with real-time cover fetching).
+  - **Sell**: Pop books from the stack (Last-In-First-Out).
+- **Real-Time Logs**:
+  - **Transaction Log**: Tracks every sale and restock event.
+  - **Error Log**: Dynamically tracks low stock warnings. Alerts appear when stock < 5 and automatically resolve when restocked.
+- **Persistence**: Uses `localStorage` to save your inventory, transaction history, and error logs across page reloads.
+- **Visuals**:
+  - "Cozy Library" aesthetic with Parchment, Oak, and Crimson color palette.
+  - Infinite scroll inventory display.
+  - Responsive design with rounded UI elements and hover effects.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React.js
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS (v4)
+- **Data**: Open Library Covers API (for book images)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1.  **Install dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+2.  **Start the development server**:
+
+    ```bash
+    npm run dev
+    ```
+
+3.  **Open the app**:
+    Navigate to `http://localhost:5173` in your browser.
+
+## 📂 Project Structure
+
+- `src/components`: UI components (Book, GenreStack, Controls, etc.)
+- `src/data`: Initial inventory data and ISBN cover mappings.
+- `src/App.jsx`: Main application logic and state management.
