@@ -2,7 +2,7 @@
 
 A "Cozy Library" themed inventory management application built with **React**, **Vite**, and **Tailwind CSS**. This application uses a Stack data structure logic (LIFO) for managing book stocks and sales.
 
-## ✨ Features
+## Features
 
 - **Genre Management**: Organize books into stacks for Fiction, Non-Fiction, Adventure, Children's, Romance, and Crime.
 - **Stack Operations**:
@@ -17,14 +17,18 @@ A "Cozy Library" themed inventory management application built with **React**, *
   - Infinite scroll inventory display.
   - Responsive design with rounded UI elements and hover effects.
 
-## 🛠️ Tech Stack
+## Live Demo
+
+**Try it out:** [https://grandlibrary.netlify.app/](https://grandlibrary.netlify.app/)
+
+## Tech Stack
 
 - **Frontend**: React.js
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS (v4)
 - **Data**: Open Library Covers API (for book images)
 
-## 🚀 Getting Started
+## Getting Started
 
 1.  **Install dependencies**:
 
@@ -41,8 +45,3 @@ A "Cozy Library" themed inventory management application built with **React**, *
 3.  **Open the app**:
     Navigate to `http://localhost:5173` in your browser.
 
-## 📂 Project Structure
-
-- `src/components`: UI components (Book, GenreStack, Controls, etc.)
-- `src/data`: Initial inventory data and ISBN cover mappings.
-- `src/App.jsx`: Main application logic and state management.
